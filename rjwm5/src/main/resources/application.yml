@@ -1,0 +1,27 @@
+spring:
+  # 配置数据源信息
+  datasource:
+    # 配置数据源类型
+    type: com.zaxxer.hikari.HikariDataSource
+    # 配置连接数据库的各个信息
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 60.205.93.62:3307/rjwm需要进行修改
+    url: jdbc:mysql://60.205.93.62:3307/rjwm?characterEncoding=utf-8&userSSL=false
+    username: root
+    password: 123456
+# 添加打印sql的日志
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: ASSIGN_ID
+  configuration:
+    #在映射实体或者属性时，将数据库中表名和字段名中的下划线去掉，按照驼峰命名法映射
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+# 添加访问前缀
+server:
+  port: 8082
+#  context-path: /sell(配置失败)
+  #配置成功前缀
+#  servlet:
+#    context-path: /sell
