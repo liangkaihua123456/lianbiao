@@ -99,14 +99,11 @@
           this.$refs.loginForm.validate(async (valid) => {
             if (valid) {
               this.loading = true
-              //点击await后面的函数进行跳转到发送请求的地址
               let res = await loginApi(this.loginForm)
               if (String(res.code) === '1') {//1表示登录成功
-                //前端接收响应的数据：code,data
                 localStorage.setItem('userInfo',JSON.stringify(res.data))
                 window.location.href= '/backend/index.html'
               } else {
-                //code,msg
                 this.$message.error(res.msg)
                 this.loading = false
               }
