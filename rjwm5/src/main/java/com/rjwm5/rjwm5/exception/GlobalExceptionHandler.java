@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 
+//TODO
+//该类没有起作用
 @ControllerAdvice(annotations = {RestController.class,Controller.class})
 @Slf4j
+// 将处理的异常返回到前端页面上
 public class GlobalExceptionHandler {
     @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
     public R<String> handler(SQLIntegrityConstraintViolationException ex){
@@ -25,5 +28,9 @@ public class GlobalExceptionHandler {
             R.error(msg);
         }
         return R.error("未知错误");
+    }
+    @ExceptionHandler(CustomException.class)
+    public R<String> handlerCustom(CustomException ex){
+        return R.error(ex.getMessage());
     }
 }

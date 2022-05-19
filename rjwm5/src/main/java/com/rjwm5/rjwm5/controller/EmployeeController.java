@@ -3,6 +3,7 @@ package com.rjwm5.rjwm5.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.rjwm5.rjwm5.common.BeanContext;
 import com.rjwm5.rjwm5.common.R;
 import com.rjwm5.rjwm5.entity.Employee;
 import com.rjwm5.rjwm5.service.EmployeeService;
@@ -59,11 +60,22 @@ public class EmployeeController {
 //            return r;
             R.error("该用户账号被禁用");
         }
+//        此处表示登录成功
+
+
+
+
 //        登录成功，将信息存放在session中
 //        通过HttpRequest中获取session
 //         //登录成功，将员工id存入Session并返回登录成功结果
         HttpSession session = request.getSession();
         session.setAttribute("employeeId",one.getId());
+
+//        将id值放入ThreadLocal中
+//        TODO
+        BeanContext.setThreadLocal(one.getId());
+
+
 //        返回前端封装好的数据
 //        System.out.println("--------------"+session.toString()+"----------------");
 /*        Enumeration<String> attributeNames = session.getAttributeNames();
@@ -108,8 +120,10 @@ public class EmployeeController {
     System.out.println(employeeId);
 //   第一次创建时，创建者与跟新者为同一个人
     employee.setPassword(password);
-    employee.setCreateTime(createTime);
-    employee.setUpdateTime(createTime);
+
+//   添加员工时： 观察是否会自动填充
+/*    employee.setCreateTime(createTime);
+    employee.setUpdateTime(createTime);*/
     employee.setCreateUser(employeeId);
     employee.setUpdateUser(employeeId);
     employee.setStatus(1);
@@ -197,5 +211,6 @@ public class EmployeeController {
     Employee one = employeeService.getOne(query);
     return R.success(one);
 }
+
 
 }

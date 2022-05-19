@@ -1,49 +1,54 @@
 package com.rjwm5.rjwm5.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 员工实体
+ * 分类
  */
 @Data
-public class Employee implements Serializable {
+public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private Long id;
 
-    private String username;
 
+    //类型 1 菜品分类 2 套餐分类
+    private Integer type;
+
+
+    //分类名称
     private String name;
 
-    private String password;
 
-    private String phone;
+    //顺序
+    private Integer sort;
 
-    private String sex;
 
-    private String idNumber;//身份证号码
-
-    private Integer status;
-
-//    设置字段的自动填充
-//    注意：此处只是设置公共字段的自动填充策略
-//    设置策略后公共字段并不能实现自动填充，
-//    还需要设置元数据对象处理器
+    //创建时间
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
+
+    //更新时间
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
-//    注意：此处存在问题
+
+    //创建人
 //    @TableField(fill = FieldFill.INSERT)
     private Long createUser;
 
+
+    //修改人
 //    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updateUser;
 
