@@ -32,11 +32,14 @@ public class LoginCheckFilter implements Filter{
         log.info("拦截到请求：{}",requestURI);
 
         //定义不需要处理的请求路径
+
+//        由于文件上传需要使用工具包，所以对工具包的路径进行放行
         String[] urls = new String[]{
                 "/employee/login",
                 "/employee/logout",
                 "/backend/**",
-                "/front/**"
+                "/front/**",
+                "/common/**"
         };
 
 

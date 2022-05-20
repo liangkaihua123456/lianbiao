@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -85,4 +86,19 @@ public R<String> save(HttpServletRequest request, @RequestBody Category category
     return R.success("修改分类成功");
 }
 
+
+//菜品的分类数据是通过数据库查找到再通过前端页面进行显示的
+//    http://localhost:8082/category/list?type=1
+    @GetMapping("/list")
+    public R<List<Category>> list(Category category){
+        LambdaQueryWrapper<Category> categoryLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<Category> query = categoryLambdaQueryWrapper.eq(category.getType() != null, Category::getType, category.getType());
+//        Category one = categoryService.getOne(query);
+//        按照时间进行降序排序
+        LambdaQueryWrapper<Category> categoryLambdaQueryWrapper1 = query.orderByDesc(Category::getUpdateTime);
+        List<Category> list = categoryService.list(categoryLambdaQueryWrapper1);
+//        categoryservice注意：使用getOne方法返回一个实体类对象
+//        使用list方法返回一个集合
+        return R.success(list);
+    }
 }

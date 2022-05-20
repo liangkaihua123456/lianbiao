@@ -25,3 +25,9 @@ server:
   #配置成功前缀
 #  servlet:
 #    context-path: /sell
+
+# 指定文件转储的位置为D：\
+#使用@value注解（“${reggie.path}}”）进行获取
+# value注解的作用：主要用于获取配置文件中的内容
+reggie:
+  path: D:\img\
