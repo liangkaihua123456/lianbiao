@@ -15,7 +15,7 @@ rjwm需要进行修改
   <groupId>com.rjwm</groupId>
   <artifactId>rjwm</artifactId>
   <version>0.0.1-SNAPSHOT</version>  
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
   <name>rjwm</name>
   <description>rjwm</description>
   <properties> 

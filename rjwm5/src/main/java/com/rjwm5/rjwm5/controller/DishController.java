@@ -170,4 +170,39 @@ public class DishController {
         dishService.updateDishAndDishflavor(dishDto);
         return R.success("修改菜品成功");
     }
+
+//    菜品停售
+    @PostMapping("/status/0")
+    public R<String> stop(Long ids){
+        Dish dish = dishService.getById(ids);
+        dish.setStatus(0);
+        dishService.updateById(dish);
+        return R.success("菜品停售成功");
+    }
+//    菜品起售
+    @PostMapping("/status/1")
+    public R<String> start(Long ids){
+        Dish dish = dishService.getById(ids);
+        dish.setStatus(1);
+        dishService.updateById(dish);
+        return R.success("菜品起售成功");
+    }
+
+//    删除菜品
+    @DeleteMapping
+    public R<String> delete(Long ids){
+        dishService.removeById(ids);
+        return R.success("删除菜品成功");
+    }
+
+//    添加菜品的查询菜品阶段
+    @GetMapping("/list")
+    public R<List<Dish>> list(Long categoryId){
+//        Dish byId = dishService.getById(categoryId);
+        LambdaQueryWrapper<Dish> dishDtoLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<Dish> query = dishDtoLambdaQueryWrapper.eq(Dish::getCategoryId, categoryId);
+        List<Dish> list = dishService.list(query);
+        return R.success(list);
+    }
+
 }
